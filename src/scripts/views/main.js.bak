@@ -1,0 +1,20 @@
+/* eslint-disable no-underscore-dangle */
+import '../components/app-bar';
+import '../components/restaurant-list';
+import { restaurants } from '../../DATA.json';
+
+const main = () => {
+  const p = document.createElement('p');
+  p.innerHTML = 'Explore Restaurant';
+
+  const _main = document.querySelector('main');
+  _main.prepend(p);
+
+  const restaurantListElement = document.querySelector('restaurant-list');
+  restaurantListElement.restaurants = restaurants;
+
+  const footer = document.querySelector('footer');
+  footer.innerHTML = 'Copyright &copy; 2020 - Restonesia';
+};
+
+export default main;

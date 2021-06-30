@@ -1,0 +1,65 @@
+const version = '1.0.0';
+const CACHE_NAME = `mypwa-${version}`;
+const assetsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/index.js',
+  // .......
+];
+
+self.addEventListener('install', (event) => {
+  console.log('Installing service worker....');
+
+  self.skipWaiting();
+
+  // menyimpan appshell ke caches API
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => caches.addAll(assetsToCache)),
+  );
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('Activating service worker...');
+
+  // menghapus cache lama
+  event.waitUntil(
+    caches.keys()
+      .then((cacheNames) => Promise.all(
+        cachesNames.filter((name) => name !== CACHE_NAME)
+          .map((filteredName) => caches.delete(filteredName))
+      )),
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  // service worker bisa menampilkan, bahkan memanipulasi request yang dilakukan client
+  console.log(event.request);
+
+  // sebelum akhirnya mengirim request ke server.
+  event.respondWith(
+    fetch(event.request),
+  );
+});
+
+self.addEventListener('message', (event) => {
+  // menampilkan data/pesan yang dikirim client
+  console.log(`Client mengirim pesan: ${event.data}`);
+});
+
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'foo') {
+    event.waitUntil(doSomething());
+  }
+});
+
+const options = {
+  // ...
+};
+
+self.addEventListener('push', (event) => {
+  event.waitUntil(
+    self.registration.showNotification('Halo Coder!', options),
+  );
+});

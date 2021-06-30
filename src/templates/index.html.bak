@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Restonesia</title>
+</head>
+<body>
+  <a href="#maincontent" class="skip-link">Menuju ke konten</a>
+  <header>
+    <app-bar></app-bar>
+    <hero-element></hero-element>
+  </header>
+  <main id="maincontent">
+    <restaurant-list></restaurant-list>
+  </main>
+  <footer></footer>
+</body>
+</html>
